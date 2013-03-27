@@ -123,22 +123,16 @@
 	<cfabort attributeCollection="#arguments#">
 </cffunction>
 
-<cffunction name="$fileForInclude" returntype="string" access="public" output="false">
-	<cfargument name="template" type="string" required="true">
-	<!--- for safety reasons only allow cfm files with normal characters to be included --->
-	<cfreturn REReplace(Replace(LCase(arguments.template), ".cfm", ""), "[^a-z_/.]", "", "all") & ".cfm">
-</cffunction>
-
 <cffunction name="$include" returntype="void" access="public" output="false">
 	<cfargument name="template" type="string" required="true">
 	<cfset var loc = {}>
-	<cfinclude template="../../#$fileForInclude(arguments.template)#">
+	<cfinclude template="../../#LCase(arguments.template)#">
 </cffunction>
 
 <cffunction name="$includeAndOutput" returntype="void" access="public" output="true">
 	<cfargument name="template" type="string" required="true">
 	<cfset var loc = {}>
-	<cfinclude template="../../#$fileForInclude(arguments.template)#">
+	<cfinclude template="../../#LCase(arguments.template)#">
 </cffunction>
 
 <cffunction name="$includeAndReturnOutput" returntype="string" access="public" output="false">
@@ -149,7 +143,7 @@
 		<cfset loc = arguments>
 	</cfif>
 	<!--- we prefix returnValue with "wheels" here to make sure the variable does not get overwritten in the included template --->
-	<cfsavecontent variable="loc.wheelsReturnValue"><cfinclude template="../../#$fileForInclude(arguments.$template)#"></cfsavecontent>
+	<cfsavecontent variable="loc.wheelsReturnValue"><cfinclude template="../../#LCase(arguments.$template)#"></cfsavecontent>
 	<cfreturn loc.wheelsReturnValue>
 </cffunction>
 
@@ -196,10 +190,6 @@
 	<cfset StructDelete(arguments, "$args", false)>
 	<cfif NOT arguments.delay>
 		<cfset StructDelete(arguments, "delay", false)>
-		<cfif arguments.url Contains "?" AND arguments.url Contains "##">
-			<!--- fix for cflocation anchor bug --->
-			<cfset arguments.url = Replace(arguments.url, "##", "&##")>
-		</cfif>
 		<cflocation attributeCollection="#arguments#">
 	</cfif>
 </cffunction>
