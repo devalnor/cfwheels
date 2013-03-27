@@ -21,6 +21,9 @@ guidelines about how to proceed. Join us!
 
 _Note:_ CFWheels uses [RocketUnit][4] as its testing framework.
 
+**Before running tests, make sure that all debugging is turned OFF**. This could add a consideral amount
+of time for the tests to complete and may cause your engine to become unresponsive.
+
  1. Create a database on a supported database server name `wheelstestdb`. At this time the supported
     database servers are H2, Microsoft SQL Server, Oracle, PostgreSQL, MySQL.
  2. Create a datasource in your CFML engine's administrator named `wheelstestdb` pointing to the
@@ -37,18 +40,20 @@ version).
 
 _Note:_ The build script has only been tested against Railo 3.3.0.007 or higher at this time.
 
-1. Open `wheels/version.cfm` file and edit the version to correspond with the build.
-2. Update `wheels/CHANGELOG` to reflect version and build date.
-3. Point your browser to the `build.cfm` file (ex: `http://localhost/builders/build.cfm`).
-4. The build will create a zip file named `cfwheels.<version>.zip` in parent directory of the repo.
-5. Annouce and post the build to the Core Team.
+1. Make sure the URL rewriting is _**OFF**_
+2. Open `wheels/version.cfm` file and edit the version to correspond with the build.
+3. Update `wheels/CHANGELOG` to reflect version and build date.
+4. Point your browser to the `build.cfm` file (ex: `http://localhost/builders/build.cfm`).
+5. The build will create a zip file named `cfwheels.<version>.zip` in parent directory of the repo.
+6. Annouce and post the build to the Core Team.
 
 ## Generating API Documentation
 
 _Note:_ The API generation script has only been tested against Railo 3.3.0.007 or higher at this time.
 
-1. Point your browser to the API Generator at `http://localhost/builders/api/index.cfm`
-2. The generator will automatically create all the pages for the Wheels API in `wheels/docs/Wheels API`
+1. Make sure the URL rewriting is _**OFF**_
+2. Point your browser to the API Generator at `http://localhost/builders/api/index.cfm`
+3. The generator will automatically create all the pages for the Wheels API in `wheels/docs/Wheels API`
 
 You may overload or overwrite any of the outputted API documentation by adding to the
 `builders/api/overload.cfm`. A diagram of the generated API structure is provided in the document.
@@ -61,10 +66,10 @@ API Generator URL:
 
 This will create a file called `cfwheels-api.xml` in the directory above your Wheels project.
 
-## View API Docuemntation
+## View API Documentation
 
 You will need a Markdown viewer in order to view the documentation locally. If you use Google Chrome,
-you can install the [Mardown Preview][6] extension.
+you can install the [Markdown Preview][6] extension.
 
 ## License
 

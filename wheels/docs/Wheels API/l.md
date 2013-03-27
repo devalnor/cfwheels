@@ -1,7 +1,7 @@
 # l()
 
 ## Description
-returns the value for the given key of a locale
+Returns the localised value for the given locale
 
 ## Function Syntax
 	l( key, [ locale ] )

@@ -29,17 +29,46 @@
 	</cffunction>
 	
    	<cffunction name="test_columns_that_are_not_null_should_allow_for_blank_string_during_create">
-		<cfset loc.author = model("author").create(firstName="Test", lastName="", transaction="rollback")>
-		<cfset assert("IsObject(loc.author) AND !len(loc.author.lastName)")>
+		<cfif application.wheels.dataAdapter eq "Oracle">
+			<!--- oracle treates empty strings as null --->
+			<cfset loc.author = model("author").create(firstName="Test", lastName=" ", transaction="rollback")>
+			<cfset assert("IsObject(loc.author) AND !len(trim(loc.author.lastName))")>
+		<cfelse>
+			<cfset loc.author = model("author").create(firstName="Test", lastName="", transaction="rollback")>
+			<cfset assert("IsObject(loc.author) AND !len(loc.author.lastName)")>		
+		</cfif>
 	</cffunction>
 
 	<cffunction name="test_saving_a_new_model_without_properties_should_not_throw_errors">
 		<cftransaction action="begin">
-			<cfset loc.model = model("sqltype").new()>
+			<cfset loc.model = model("sqltypesnulls").new()>
 			<cfset loc.str = raised('loc.model.save(reload=true)')>
 			<cfset assert('loc.str eq ""')>
 			<cftransaction action="rollback"/>
 		</cftransaction>
+	</cffunction>
+	
+	<cffunction name="test_saving_blank_string_to_a_nullable_integer_column_should_be_null">
+		<cftransaction action="begin">
+			<cfset loc.model = model("sqltypesnulls").new(intType='')>
+			<cfset loc.model.save(reload=true)>
+			<cfset assert('loc.model.intType eq ""')>
+			<cftransaction action="rollback"/>
+		</cftransaction>
+	</cffunction>
+
+	<cffunction name="test_saving_a_new_model_without_properties_should_insert_defaults_where_supported">
+		<cfif !ListFindNoCase("mssql", application.wheels.dataAdapter)>
+			<cfset assert('1 eq 1')>
+		<cfelse>
+			<cftransaction action="begin">
+				<cfset loc.model = model("sqltypesnulls").new()>
+				<cfset loc.model.save(reload=true)>
+				<cfset loc.p = loc.model.properties()>
+				<cftransaction action="rollback"/>
+			</cftransaction>
+			<cfset assert('loc.p.id gt 1')>
+		</cfif>
 	</cffunction>
 
 </cfcomponent>

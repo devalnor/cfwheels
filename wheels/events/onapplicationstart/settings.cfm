@@ -61,6 +61,9 @@
 	}
 	if (application.wheels.environment != "design" && application.wheels.environment != "development")
 		application.wheels.showDebugInformation = false;
+	
+	application.wheels.errorEmailToAddress = application.wheels.errorEmailAddress;
+	application.wheels.errorEmailFromAddress = application.wheels.errorEmailAddress;
 
 	// asset path settings
 	// assetPaths can be struct with two keys,  http and https, if no https struct key, http is used for secure and non-secure
@@ -89,6 +92,9 @@
 	application.wheels.automaticValidations = true;
 	application.wheels.setUpdatedAtOnCreate = true;
 	application.wheels.useExpandedColumnAliases = false;
+	
+	// are we allowed to switch environments through the url?
+	application.wheels.allowedEnvironmentSwitchThroughURL = false;
 	
 	// if session management is enabled in the application we default to storing flash data in the session scope, if not we use a cookie
 	if (StructKeyExists(this, "sessionManagement") && this.sessionManagement)
@@ -131,6 +137,7 @@
 	application.wheels.formats.pdf = "application/pdf";
 	application.wheels.formats.xls = "application/vnd.ms-excel";
 	application.wheels.formats.js = "text/javascript";
+	application.wheels.formats.wddx = "text/xml";
 
 	// function defaults
 	application.wheels.functions = {};
