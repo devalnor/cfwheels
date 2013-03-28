@@ -1,4 +1,19 @@
-WHEELS VERSION 1.1.8 (UNRELEASE)
+WHEELS VERSION 1.1.9 (29/03/2013)
+
+Bug Fixes
+=========
+* Removed call to LCase the foldername, otherwise calls to $pluginDelete fails. Linux is case sensitive.
+* Fixes pagination bug with a blank 'where' clause
+* Fix typo in miscellaneous/Application.cfc
+* Fix setPagination not available to controllers
+
+Other Enhancements
+==================
+* Made it possible to set a global default for the twelveHour argument.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+WHEELS VERSION 1.1.8 (05/05/2012)
 
 Model Enhancements
 ==================
