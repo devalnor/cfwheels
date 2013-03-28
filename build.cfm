@@ -17,7 +17,7 @@ Before building:
 
 <!--- set the release version --->
 
-<cfset release = "1.1.8">
+<cfset release = "1.1.9">
 
 <!--- do not modify anything pass here. you be sorry :) --->
 <cfset source = ExpandPath(".")>
